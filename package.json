@@ -1,7 +1,7 @@
 {
   "name": "iman-wallet-cli",
   "version": "1.0.0",
-  "description": "Iman Wallet CLI: a community-maintained Stellar Horizon command-line wallet.",
+  "description": "Community-maintained experimental CLI wallet for the Pi Network Testnet using Stellar-compatible Horizon APIs; unofficial and unaudited.",
   "main": "index.js",
   "scripts": {
     "test": "node --test",
