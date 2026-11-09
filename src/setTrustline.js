@@ -18,14 +18,17 @@ function setTrustline() {
 
     //get source account information
     const accountAddress = (config.my_address) ? config.my_address : prompt(chalk.yellowBright('Source Account Address: '));
-    const accountPassphrase = prompt(chalk.yellowBright('Source Account Passphrase/PrivateKey: '));
+    const accountPassphrase = prompt.hide(chalk.yellowBright('Source Account Passphrase/PrivateKey: '));
 
     //get asset information
     const assetName = prompt(chalk.yellowBright('Asset Name: '));
     const issuerAddress = prompt(chalk.yellowBright('Issuer Account Address: '));
 
     //ask confirmation
-    prompt(chalk.yellowBright('Press Enter to Finalize and Submit...'));
+    if (prompt(chalk.yellowBright('Type TRUST to sign and create this trustline: ')) !== 'TRUST') {
+        console.log(chalk.yellowBright('Trustline creation cancelled.'));
+        return;
+    }
 
     const status = new Spinner('Making transaction, please wait...');
     status.start();
