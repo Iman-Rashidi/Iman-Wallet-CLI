@@ -7,6 +7,7 @@ const bip39 = require('bip39')
 const ed25519 =  require('@hawkingnetwork/ed25519-hd-key-rn');
 const config = require('../config.json');
 const piLib = require('./piLib');
+const { normalizePositiveAmount } = require('./validation');
 const prompt = require('prompt-sync')({ sigint: true });
 const CLI = require('clui');
 const Spinner = CLI.Spinner;
@@ -26,11 +27,14 @@ function create() {
     if (!accountAddress){
         var accountAddress = prompt(chalk.yellowBright('Source Account Address: '));
     }
-    const accountPassphrase = prompt(chalk.yellowBright('Source Account Passphrase/PrivateKey: '));
-    const fundAmt = prompt(chalk.yellowBright('Funding Amt: '));
+    const accountPassphrase = prompt.hide(chalk.yellowBright('Source Account Passphrase/PrivateKey: '));
+    const fundAmt = normalizePositiveAmount(prompt(chalk.yellowBright('Funding Amt: ')), 'Funding amount');
 
     //ask confirmation
-    prompt(chalk.yellowBright('Press Enter to Finalize and Submit...'));
+    if (prompt(chalk.yellowBright('Type CREATE to fund and submit the new account: ')) !== 'CREATE') {
+        console.log(chalk.yellowBright('Account creation cancelled.'));
+        return;
+    }
 
     const status = new Spinner('Creating account, please wait...');
     status.start();
