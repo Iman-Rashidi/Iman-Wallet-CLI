@@ -1,8 +1,13 @@
-# Iman Wallet CLI
+# Iman Pi Wallet CLI
 
-**Iman Wallet CLI** is maintained by **Iman Rashidi** ([Iman-Rashidi](https://github.com/Iman-Rashidi)). It began as a community-maintained fork of [limitpointinf0/pi-wallet-cli](https://github.com/limitpointinf0/pi-wallet-cli); this repository preserves upstream attribution while using its own project identity.
+**Iman Pi Wallet CLI** is a community-maintained command-line client for the Pi Network Testnet. It is maintained by **Iman Rashidi** ([Iman-Rashidi](https://github.com/Iman-Rashidi)). It began as a community-maintained fork of [limitpointinf0/pi-wallet-cli](https://github.com/limitpointinf0/pi-wallet-cli); this repository preserves upstream attribution while using its own project identity.
 
-This command-line application uses a Stellar-compatible Horizon client and the configured Pi network endpoint. It is **experimental, unaudited wallet software**. It is not the official Pi Network wallet or the current Pi Apps Platform SDK.
+This command-line application uses a Stellar-compatible Horizon client and the configured Pi Network endpoint. The repository name and npm package remain `Iman-Wallet-CLI` and `iman-wallet-cli`; the display name clarifies its Pi Network purpose. It is **experimental, unaudited wallet software**. It is not an official Pi Network product, the official Pi Wallet, or the current Pi Apps Platform SDK.
+
+## Pi Network compatibility and safety
+
+- The inherited default endpoint is `https://api.testnet.minepi.com` and the configured network passphrase is `Pi Testnet`. Verify both against current Pi Network developer documentation before any use.
+- This is a community fork built on Stellar-compatible Horizon tooling; compatibility with current Pi Network services is not guaranteed.
 
 ## Important safety notice
 
