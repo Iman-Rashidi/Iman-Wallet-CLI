@@ -11,7 +11,7 @@ This command-line application uses a Stellar-compatible Horizon client and the c
 - Never share a passphrase, mnemonic, private key, or generated secret seed with anyone, including in an issue, screenshot, terminal transcript, or chat.
 - Secret input is hidden in the updated interactive commands. This does not make an infected machine or terminal session safe.
 - Review every amount, destination, asset issuer, fee, network endpoint, and network passphrase independently before using any transaction feature.
-- Creating a custom asset includes an issuer-lock operation in the inherited flow. Locking the issuer can permanently remove its ability to sign further transactions; do not run that flow without reviewing the code and understanding the consequence.
+- Creating a custom asset offers an optional issuer-lock operation. Locking the issuer can permanently remove its ability to sign further transactions; it is opt-in and should only be selected after reviewing the code and understanding the consequence.
 - This software has not undergone a professional security audit. Use only disposable Testnet accounts for development and testing.
 
 Official Pi documentation: [Mainnet vs Testnet](https://developers.minepi.com/docs/concepts/MainVsTest) · [Pi Platform API](https://developers.minepi.com/docs/api-reference/Platform).
