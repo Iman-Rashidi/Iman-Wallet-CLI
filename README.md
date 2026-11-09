@@ -1,6 +1,6 @@
 # Iman Wallet CLI
 
-**Iman Wallet CLI** is maintained by **Iman Rashidi** ([Iman-Rashidi](https://github.com/Iman-Rashidi)). It began as a community-maintained fork of [limitpointinf0/iman-wallet-cli](https://github.com/limitpointinf0/pi-wallet-cli); this repository preserves upstream attribution while using its own project identity.
+**Iman Wallet CLI** is maintained by **Iman Rashidi** ([Iman-Rashidi](https://github.com/Iman-Rashidi)). It began as a community-maintained fork of [limitpointinf0/pi-wallet-cli](https://github.com/limitpointinf0/pi-wallet-cli); this repository preserves upstream attribution while using its own project identity.
 
 This command-line application uses a Stellar-compatible Horizon client and the configured Pi network endpoint. It is **experimental, unaudited wallet software**. It is not the official Pi Network wallet or the current Pi Apps Platform SDK.
 
@@ -25,14 +25,24 @@ Network background: [Mainnet vs Testnet](https://developers.minepi.com/docs/conc
 
     git clone https://github.com/Iman-Rashidi/Iman-Wallet-CLI.git
     cd Iman-Wallet-CLI
-    npm install
+    npm ci
     npm test
+    npm run check
 
 To expose the CLI command locally:
 
     npm link
 
-The package entry point is index.js and the installed executable is pi-wallet.
+The package entry point is `index.js`; the installed executable is **`iman-wallet`**.
+
+## Run
+
+Display the CLI help or information:
+
+    iman-wallet --help
+    iman-wallet info
+
+Run `iman-wallet` with a command and follow the interactive prompts. The payment command is named `pay` (not `transfer`).
 
 ## Commands
 
@@ -54,8 +64,6 @@ The commands currently registered by the CLI are:
 | upfile | Upload a file to an IPFS endpoint |
 | info | Display CLI information |
 
-Run pi-wallet with a command and follow the interactive prompts. The pay command is named pay (not transfer).
-
 ## Validation and tests
 
 The maintained branch includes reusable validation for positive Stellar decimal amounts (up to 7 fractional digits and the signed int64 stroop ceiling) and UTF-8 text memos (maximum 28 bytes). Unit tests use Node.js built-in test runner and do not contact a network, load a wallet, or sign a transaction.
@@ -63,8 +71,10 @@ The maintained branch includes reusable validation for positive Stellar decimal 
     npm test
     npm run check
 
+These checks validate local code and input rules only. They do **not** verify live Horizon connectivity, account access, transaction submission, or successful confirmation on Testnet. Any network smoke test must use a disposable Testnet account with no real funds; never paste or publish secret keys, recovery phrases, or passphrases.
+
 ## Attribution
 
 - Original project and inherited implementation: [limitpointinf0/pi-wallet-cli](https://github.com/limitpointinf0/pi-wallet-cli)
-- This maintained fork: [Iman-Rashidi/pi-wallet-cli](https://github.com/Iman-Rashidi/pi-wallet-cli)
+- This maintained fork: [Iman-Rashidi/Iman-Wallet-CLI](https://github.com/Iman-Rashidi/Iman-Wallet-CLI)
 - Fork maintenance and new validation/test work: Iman Rashidi ([Iman-Rashidi](https://github.com/Iman-Rashidi))
