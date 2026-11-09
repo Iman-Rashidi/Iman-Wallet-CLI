@@ -1,12 +1,16 @@
 {
   "name": "pi-wallet-cli",
   "version": "1.0.0",
-  "description": "Command-Line Interface for Pi Wallets",
-  "main": "./bin/index.js",
+  "description": "A community-maintained fork of a Pi-compatible Stellar Horizon CLI wallet.",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test",
+    "check": "node --check index.js && node --check src/validation.js"
   },
   "author": "limitpointinf0",
+  "contributors": [
+    "Iman Rashidi (@Iman-Rashidi)"
+  ],
   "license": "MIT",
   "dependencies": {
     "@hawkingnetwork/ed25519-hd-key-rn": "^1.0.1",
@@ -22,5 +26,8 @@
   },
   "bin": {
     "pi-wallet": "index.js"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
