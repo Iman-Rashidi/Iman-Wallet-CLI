@@ -1,12 +1,12 @@
-# Pi Wallet CLI
+# Iman Wallet CLI
 
-A community-maintained fork of the original [limitpointinf0/pi-wallet-cli](https://github.com/limitpointinf0/pi-wallet-cli), with maintenance updates by **Iman Rashidi** ([Iman-Rashidi](https://github.com/Iman-Rashidi)).
+**Iman Wallet CLI** is maintained by **Iman Rashidi** ([Iman-Rashidi](https://github.com/Iman-Rashidi)). It began as a community-maintained fork of [limitpointinf0/iman-wallet-cli](https://github.com/limitpointinf0/pi-wallet-cli); this repository preserves upstream attribution while using its own project identity.
 
 This command-line application uses a Stellar-compatible Horizon client and the configured Pi network endpoint. It is **experimental, unaudited wallet software**. It is not the official Pi Network wallet or the current Pi Apps Platform SDK.
 
 ## Important safety notice
 
-- The default configuration targets the Pi Testnet. Test-Pi has no monetary value and Testnet may be reset. Testnet and Mainnet are separate networks.
+- The inherited default configuration targets the Pi Testnet. Test-Pi has no monetary value and Testnet may be reset. Testnet and Mainnet are separate networks.
 - Do not use a Mainnet wallet or real funds with this experimental fork. Blockchain transactions are irreversible.
 - Never share a passphrase, mnemonic, private key, or generated secret seed with anyone, including in an issue, screenshot, terminal transcript, or chat.
 - Secret input is hidden in the updated interactive commands. This does not make an infected machine or terminal session safe.
@@ -14,7 +14,7 @@ This command-line application uses a Stellar-compatible Horizon client and the c
 - Creating a custom asset offers an optional issuer-lock operation. Locking the issuer can permanently remove its ability to sign further transactions; it is opt-in and should only be selected after reviewing the code and understanding the consequence.
 - This software has not undergone a professional security audit. Use only disposable Testnet accounts for development and testing.
 
-Official Pi documentation: [Mainnet vs Testnet](https://developers.minepi.com/docs/concepts/MainVsTest) · [Pi Platform API](https://developers.minepi.com/docs/api-reference/Platform).
+Network background: [Mainnet vs Testnet](https://developers.minepi.com/docs/concepts/MainVsTest) · [Pi Platform API](https://developers.minepi.com/docs/api-reference/Platform).
 
 ## Requirements
 
@@ -23,8 +23,8 @@ Official Pi documentation: [Mainnet vs Testnet](https://developers.minepi.com/do
 
 ## Install
 
-    git clone https://github.com/Iman-Rashidi/pi-wallet-cli.git
-    cd pi-wallet-cli
+    git clone https://github.com/Iman-Rashidi/Iman-Wallet-CLI.git
+    cd Iman-Wallet-CLI
     npm install
     npm test
 
