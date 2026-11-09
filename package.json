@@ -1,7 +1,7 @@
 {
-  "name": "pi-wallet-cli",
+  "name": "iman-wallet-cli",
   "version": "1.0.0",
-  "description": "A community-maintained fork of a Pi-compatible Stellar Horizon CLI wallet.",
+  "description": "Iman Wallet CLI: a community-maintained Stellar Horizon command-line wallet.",
   "main": "index.js",
   "scripts": {
     "test": "node --test",
@@ -25,7 +25,7 @@
     "yargs": "^13.2.4"
   },
   "bin": {
-    "pi-wallet": "index.js"
+    "iman-wallet": "index.js"
   },
   "engines": {
     "node": ">=20"
