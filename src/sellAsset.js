@@ -7,6 +7,7 @@ const bip39 = require('bip39')
 const ed25519 =  require('@hawkingnetwork/ed25519-hd-key-rn');
 const config = require('../config.json');
 const piLib = require('./piLib');
+const { normalizePositiveAmount } = require('./validation');
 const prompt = require('prompt-sync')({ sigint: true });
 const CLI = require('clui');
 const Spinner = CLI.Spinner;
@@ -18,18 +19,21 @@ function sellToken() {
 
     //get source account information
     const accountAddress = (config.my_address) ? config.my_address : prompt(chalk.yellowBright('Source Account Address: '));
-    const accountPassphrase = prompt(chalk.yellowBright('Source Account Passphrase/PrivateKey: '));
+    const accountPassphrase = prompt.hide(chalk.yellowBright('Source Account Passphrase/PrivateKey: '));
 
     //get asset information
     const assetName = prompt(chalk.yellowBright('Asset Name to Sell: '));
-    const assetAmount = prompt(chalk.yellowBright('Amount of Asset to Sell: '));
+    const assetAmount = normalizePositiveAmount(prompt(chalk.yellowBright('Amount of Asset to Sell: ')), 'Asset amount');
     const assetOffer = prompt(chalk.yellowBright('Buying Asset (blank for native): '));
-    const assetPrice = prompt(chalk.yellowBright('Price per unit: '));
+    const assetPrice = normalizePositiveAmount(prompt(chalk.yellowBright('Price per unit: ')), 'Asset price');
     const buyIssuerAddress = prompt(chalk.yellowBright('Buy Issuer Account Address: '));
     const sellIssuerAddress = prompt(chalk.yellowBright('Sell Issuer Account Address: '));
 
     //ask confirmation
-    prompt(chalk.yellowBright('Press Enter to Finalize and Submit...'));
+    if (prompt(chalk.yellowBright('Type SUBMIT to sign and place this sell offer: ')) !== 'SUBMIT') {
+        console.log(chalk.yellowBright('Sell offer cancelled.'));
+        return;
+    }
 
     const status = new Spinner('Making transaction, please wait...');
     status.start();

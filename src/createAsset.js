@@ -7,6 +7,7 @@ const bip39 = require('bip39')
 const ed25519 =  require('@hawkingnetwork/ed25519-hd-key-rn');
 const config = require('../config.json');
 const piLib = require('./piLib');
+const { normalizePositiveAmount } = require('./validation');
 const prompt = require('prompt-sync')({ sigint: true });
 const CLI = require('clui');
 const Spinner = CLI.Spinner;
@@ -23,16 +24,16 @@ function main() {
 
     //get issuer account information
     context.issuerAccountAddress = prompt(chalk.yellowBright('Issuer Account Address: '));
-    context.issuerAccountPass = prompt(chalk.yellowBright('Issuer Account Passphrase/PrivateKey: '));
+    context.issuerAccountPass = prompt.hide(chalk.yellowBright('Issuer Account Passphrase/PrivateKey: '));
 
     //get distributor account information
     context.distributorAccountAddress = prompt(chalk.yellowBright('Distributor Account Address: '));
-    context.distributorAccountPass = prompt(chalk.yellowBright('Distributor Account Passphrase/PrivateKey: '));
+    context.distributorAccountPass = prompt.hide(chalk.yellowBright('Distributor Account Passphrase/PrivateKey: '));
 
     //get asset information
     context.assetName = prompt(chalk.yellowBright('Asset Name: '));
     context.customAsset = new Stellar.Asset(context.assetName, context.issuerAccountAddress);
-    context.assetAmount = prompt(chalk.yellowBright('Asset Amount: '));
+    context.assetAmount = normalizePositiveAmount(prompt(chalk.yellowBright('Asset Amount: ')), 'Asset amount');
     context.assetInfo = prompt(chalk.yellowBright('Asset Info Domain: '));
     context.dataoptsName = prompt(chalk.yellowBright('Asset Data [name]: '));
     context.dataoptsVal = prompt(chalk.yellowBright('Asset Data [value]: '));
@@ -77,7 +78,14 @@ function main() {
         context.success(message);
         createAsset(context).then((message) => {
             context.success(message);
-            lockIssuer(context).then(context.success).catch(context.fail)
+            const lockConfirmation = prompt(chalk.yellowBright(
+                'Type LOCK ISSUER to permanently disable this issuer key, or press Enter to leave the issuer unlocked: '
+            ));
+            if (lockConfirmation === 'LOCK ISSUER') {
+                lockIssuer(context).then(context.success).catch(context.fail);
+            } else {
+                console.log(chalk.yellowBright('Issuer was left unlocked. Keep its secret key secure.'));
+            }
         }).catch(context.fail)
     }).catch(context.fail)
 }

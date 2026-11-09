@@ -1,12 +1,16 @@
 {
-  "name": "pi-wallet-cli",
+  "name": "iman-wallet-cli",
   "version": "1.0.0",
-  "description": "Command-Line Interface for Pi Wallets",
-  "main": "./bin/index.js",
+  "description": "Community-maintained experimental CLI wallet for the Pi Network Testnet using Stellar-compatible Horizon APIs; unofficial and unaudited.",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test",
+    "check": "node --check index.js && node --check src/checkAccount.js && node --check src/checkAssets.js && node --check src/checkOrderBook.js && node --check src/config.js && node --check src/createAccount.js && node --check src/createAsset.js && node --check src/info.js && node --check src/makePayment.js && node --check src/piLib.js && node --check src/purchaseAsset.js && node --check src/sellAsset.js && node --check src/setAccount.js && node --check src/setTrustline.js && node --check src/streamActivity.js && node --check src/unsetAccount.js && node --check src/uploadIPFS.js && node --check src/validation.js && node --check test/validation.test.js"
   },
   "author": "limitpointinf0",
+  "contributors": [
+    "Iman Rashidi (@Iman-Rashidi)"
+  ],
   "license": "MIT",
   "dependencies": {
     "@hawkingnetwork/ed25519-hd-key-rn": "^1.0.1",
@@ -21,6 +25,9 @@
     "yargs": "^13.2.4"
   },
   "bin": {
-    "pi-wallet": "index.js"
+    "iman-wallet": "index.js"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
