@@ -3,6 +3,7 @@ const Stellar = require('stellar-sdk')
 var StellarBase = require('stellar-base');
 const config = require('../config.json');
 const piLib = require('./piLib');
+const { normalizePositiveAmount, validateMemoText } = require('./validation');
 const prompt = require('prompt-sync')({ sigint: true });
 const CLI = require('clui');
 const Spinner = CLI.Spinner;
@@ -13,18 +14,21 @@ function makePayment() {
 
     //get source account information
     const accountAddress = (config.my_address) ? config.my_address : prompt(chalk.yellowBright('Source Account Address: '));
-    const accountPassphrase = prompt(chalk.yellowBright('Source Account Passphrase/PrivateKey: '));
+    const accountPassphrase = prompt.hide(chalk.yellowBright('Source Account Passphrase/PrivateKey: '));
     //get destination account information
     const destAccountAddress = prompt(chalk.yellowBright('Destination Account Address: '));
     //get asset to transfer
     const assetName = prompt(chalk.yellowBright('Asset (blank for native): '));
     const issuerAddress = prompt(chalk.yellowBright('Asset Issuer (blank for native): '));
     //get amount to transfer
-    const transferAmt = prompt(chalk.yellowBright('Transfer Amt: '));
+    const transferAmt = normalizePositiveAmount(prompt(chalk.yellowBright('Transfer Amt: ')), 'Transfer amount');
     //get memo to transfer
-    const transferMemo = prompt(chalk.yellowBright('Memo (optional): '));
+    const transferMemo = validateMemoText(prompt(chalk.yellowBright('Memo (optional): ')));
     //ask confirmation
-    prompt(chalk.yellowBright('Press Enter to Finalize and Submit...'));
+    if (prompt(chalk.yellowBright('Type SEND to sign and submit this payment: ')) !== 'SEND') {
+        console.log(chalk.yellowBright('Payment cancelled.'));
+        return;
+    }
 
     //validate
     if (!StellarBase.StrKey.isValidEd25519PublicKey(destAccountAddress)) {
@@ -88,9 +92,12 @@ function makePayment() {
             networkPassphrase: config.networkPassphrase,
         }
         const accountA = await server.loadAccount(accountAddress)
-        const transaction = new Stellar.TransactionBuilder(accountA, txOptions)
-            .addOperation(Stellar.Operation.payment(paymentToDest))
-            .addMemo(Stellar.Memo.text(transferMemo))
+        const builder = new Stellar.TransactionBuilder(accountA, txOptions)
+            .addOperation(Stellar.Operation.payment(paymentToDest));
+        if (transferMemo.length > 0) {
+            builder.addMemo(Stellar.Memo.text(transferMemo));
+        }
+        const transaction = builder
             .setTimeout(StellarBase.TimeoutInfinite)
             .build()
 
